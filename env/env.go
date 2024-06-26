@@ -9,7 +9,6 @@ type Env struct {
 	Info struct {
 		Port    string
 		Service string
-		Log     string
 	} `toml:"info"`
 }
 

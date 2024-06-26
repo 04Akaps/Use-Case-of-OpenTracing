@@ -2,6 +2,7 @@ package main
 
 import (
 	"flag"
+	"open_tracing/API"
 	. "open_tracing/env"
 )
 
@@ -14,5 +15,5 @@ func init() {
 }
 
 func main() {
-
+	API.NewApp(env)
 }
