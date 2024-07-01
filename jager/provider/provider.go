@@ -25,11 +25,6 @@ func Provider(service string) (io.Closer, error) {
 	if tracer, closer, err := cfg.NewTracer(config.Logger(jaegerLog.StdLogger)); err != nil {
 		return nil, err
 	} else {
-
-		testSpan := tracer.StartSpan("test span")
-		testSpan.LogKV("test key", "some test value")
-		testSpan.Finish()
-
 		opentracing.SetGlobalTracer(tracer)
 
 		return closer, err

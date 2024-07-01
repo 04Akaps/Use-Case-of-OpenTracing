@@ -20,7 +20,7 @@ func NewApp(env *env.Env) {
 		panic("Failed To Set jClient")
 	}
 
-	a.network = network.NewNetwork(env)
+	a.network = network.NewNetwork(env, a.jClient)
 
 	a.network.Start()
 }
