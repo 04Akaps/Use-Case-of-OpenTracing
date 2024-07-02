@@ -5,7 +5,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/opentracing/opentracing-go"
 	"github.com/opentracing/opentracing-go/ext"
-	"net/http"
 )
 
 type sample struct {
@@ -15,35 +14,17 @@ type sample struct {
 func newSampleRouter(n *Network) {
 	s := &sample{n: n}
 
+	// sample_base
 	n.Router(GET, "/send", s.send)
+	n.Router(GET, "/send-with-tag", s.sendWithTag)
 	n.Router(GET, "/send-with-child", s.sendWithChild)
+
+	// other_host
+	n.Router(GET, "/receive-from-other-host", s.receiveSpanRouter)
+	n.Router(GET, "/send-other-host", s.sendWithOtherHost)
+	n.Router(GET, "/receive-two-from-other-host", s.receiveTwoSpanRouter)
+
 	n.Router(GET, "/inject", s.inject)
-}
-
-func (s *sample) send(c *gin.Context) {
-	fmt.Println("Send")
-
-	tracer := opentracing.GlobalTracer()
-	spanCtx, _ := tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(c.Request.Header))
-	sendSpan := tracer.StartSpan("send_span", ext.RPCServerOption(spanCtx))
-
-	defer sendSpan.Finish()
-
-	c.JSON(http.StatusOK, "Success Sample Span")
-}
-
-func (s *sample) sendWithChild(c *gin.Context) {
-	fmt.Println("sendWithChild")
-
-	tracer := opentracing.GlobalTracer()
-	spanCtx, _ := tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(c.Request.Header))
-	sendSpan := tracer.StartSpan("span_one", ext.RPCServerOption(spanCtx))
-
-	defer sendSpan.Finish()
-
-	childSpan := tracer.StartSpan("span_two", opentracing.ChildOf(sendSpan.Context()))
-
-	defer childSpan.Finish()
 }
 
 func (s *sample) inject(c *gin.Context) {

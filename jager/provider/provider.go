@@ -19,6 +19,7 @@ func Provider(service string) (io.Closer, error) {
 		},
 		Reporter: &config.ReporterConfig{
 			LogSpans: true,
+			//LocalAgentHostPort: "localhost:6820", // if host is changed
 		},
 	}
 
@@ -30,32 +31,4 @@ func Provider(service string) (io.Closer, error) {
 		return closer, err
 	}
 
-	//tracer, closer, err := cfg.NewTracer(config.Logger(jaeger.StdLogger))
-	//if err != nil {
-	//	panic(fmt.Sprintf("ERROR: cannot init Jaeger: %v\n", err))
-	//}
-	//return tracer, closer
-	//
-	//client := otlptracegrpc.NewClient(
-	//	otlptracegrpc.WithInsecure(),
-	//)
-	//exporter, err := otlptrace.New(ctx, client)
-	//if err != nil {
-	//	log.Fatal("creating OTLP trace exporter: %w", err)
-	//}
-	//
-	//tp := sdk.NewTracerProvider(
-	//	sdk.WithBatcher(exporter),
-	//	sdk.WithResource(newResource(service)),
-	//)
-	//
-	//return tp.Tracer(service)
 }
-
-//func newResource(service string) *resource.Resource {
-//	return resource.NewWithAttributes(
-//		conv.SchemaURL,
-//		conv.ServiceName(service),
-//		conv.ServiceVersion("0.0.1"),
-//	)
-//}
