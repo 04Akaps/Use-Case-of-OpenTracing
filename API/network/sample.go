@@ -1,12 +1,5 @@
 package network
 
-import (
-	"fmt"
-	"github.com/gin-gonic/gin"
-	"github.com/opentracing/opentracing-go"
-	"github.com/opentracing/opentracing-go/ext"
-)
-
 type sample struct {
 	n *Network
 }
@@ -24,18 +17,11 @@ func newSampleRouter(n *Network) {
 	n.Router(GET, "/send-other-host", s.sendWithOtherHost)
 	n.Router(GET, "/receive-two-from-other-host", s.receiveTwoSpanRouter)
 
-	n.Router(GET, "/inject", s.inject)
-}
+	// panic_host
+	n.Router(GET, "/send-for-panic", s.sendForPanic)
+	n.Router(GET, "/receive-for-error", s.receiveForError)
 
-func (s *sample) inject(c *gin.Context) {
-	fmt.Println("inject")
-
-	tracer := opentracing.GlobalTracer()
-	spanCtx, _ := tracer.Extract(opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(c.Request.Header))
-	sendSpan := tracer.StartSpan("inject_test", ext.RPCServerOption(spanCtx))
-
-	defer sendSpan.Finish()
-
-	tracer.Inject(sendSpan.Context(), opentracing.HTTPHeaders, opentracing.HTTPHeadersCarrier(c.Request.Header))
-
+	// baggage
+	n.Router(GET, "/send-for-baggage", s.sendForBaggage)
+	n.Router(GET, "/receive-for-baggage", s.receiveForBaggage)
 }
