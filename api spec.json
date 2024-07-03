@@ -1,0 +1,126 @@
+{
+	"info": {
+		"_postman_id": "c10f1816-2612-4215-bc56-166a1562dfa2",
+		"name": "New Collection",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17113865"
+	},
+	"item": [
+		{
+			"name": "Base Span",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/send",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"send"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Child Span",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/send-with-child",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"send-with-child"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Inject",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "send with tag",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/send-with-tag",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"send-with-tag"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send other host",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/send-other-host",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"send-other-host"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send for err",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/send-for-panic",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"send-for-panic"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "send for baggage",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/send-for-baggage",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"send-for-baggage"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
